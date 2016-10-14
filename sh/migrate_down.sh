@@ -1,0 +1,1 @@
+ migrate -url postgres://legislator_call@localhost:5432/legislator_call -path ./db/migrations down

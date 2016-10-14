@@ -1,0 +1,4 @@
+CREATE TABLE parties(
+	id INT PRIMARY KEY,
+	name VARCHAR(60)
+);
