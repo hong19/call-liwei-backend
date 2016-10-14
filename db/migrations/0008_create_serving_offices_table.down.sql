@@ -1,0 +1,1 @@
+DROP TABLE serving_offices;
