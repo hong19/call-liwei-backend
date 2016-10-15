@@ -1,0 +1,1 @@
+go install github.com/hong19/call-liwei-backend
