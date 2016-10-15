@@ -1,4 +1,4 @@
 CREATE TABLE party_groups(
-	id INT PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
 	name VARCHAR(60)
 );

@@ -1,5 +1,5 @@
 CREATE TABLE serving_offices(
-	id			INT 	PRIMARY KEY,
+	id			SERIAL 	PRIMARY KEY,
 	address   	VARCHAR(255),
 	telephone	VARCHAR(20),
 	tax			VARCHAR(20),
