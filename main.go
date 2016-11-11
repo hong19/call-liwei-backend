@@ -13,7 +13,15 @@ import (
 
 func main() {
 
+	parseCsvToDatabase()
+
+}
+
+func parseCsvToDatabase() {
 	fmt.Printf("parse start\n")
+
+	//connect to db
+	db := connectToDatabase()
 
 	dat, err := ioutil.ReadFile("legislator_info.csv")
 	check(err)
@@ -22,14 +30,6 @@ func main() {
 
 	//read out header line
 	r.Read()
-
-	//connect to db
-	fmt.Printf("connect db\n")
-
-	db, err := sql.Open("postgres", "user=legislator_call dbname=legislator_call")
-	if err != nil {
-		log.Fatal(err)
-	}
 
 	i := 0
 	for i = 0; i < 1; i++ {
@@ -60,7 +60,17 @@ func main() {
 	}
 
 	fmt.Printf("parse end\n")
+}
 
+func connectToDatabase() *sql.DB {
+	fmt.Printf("connect db\n")
+
+	db, err := sql.Open("postgres", "user=legislator_call dbname=legislator_call")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return db
 }
 
 func check(e error) {
