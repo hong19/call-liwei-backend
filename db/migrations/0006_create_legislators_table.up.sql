@@ -1,5 +1,5 @@
 CREATE TABLE legislators(
-	id 				INT 			PRIMARY KEY NOT NULL,
+	id 				SERIAL 			PRIMARY KEY NOT NULL,
 	name 			VARCHAR(60)		NOT NULL,
 	english_name 	VARCHAR(60),
 	gender 			CHAR(1)			NOT NULL,
