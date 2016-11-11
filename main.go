@@ -23,8 +23,16 @@ func main() {
 	//read out header line
 	r.Read()
 
+	//connect to db
+	fmt.Printf("connect db\n")
+
+	db, err := sql.Open("postgres", "user=legislator_call dbname=legislator_call")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	i := 0
-	for i = 0; i < 2; i++ {
+	for i = 0; i < 1; i++ {
 		record, err := r.Read()
 		if err == io.EOF {
 			break
@@ -33,25 +41,25 @@ func main() {
 			log.Fatal(err)
 		}
 
-		fmt.Println(record)
+		j := 0
+		for j = 0; j < len(record); j++ {
+			fmt.Printf("%d  %s\n", j, record[j])
+		}
+
+		sql := "INSERT INTO legislators (name, gender) VALUES ('hong', 'M')"
+
+		fmt.Print(sql)
+
+		rows, err := db.Query("INSERT INTO legislators (name, gender) VALUES ('hong', 'M')")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Print(rows)
+
 	}
 
 	fmt.Printf("parse end\n")
-
-	fmt.Printf("connect db\n")
-
-	//db, err := sql.Open("postgres", "postgres://legislator_call@localhost/legislator_call?sslmode=verify-full")
-	db, err := sql.Open("postgres", "user=legislator_call dbname=legislator_call")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	rows, err := db.Query("INSERT INTO legislators (id, name, gender) VALUES (2, 'hong', 'M')")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Print(rows)
 
 }
 
