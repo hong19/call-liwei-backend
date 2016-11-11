@@ -5,7 +5,6 @@ import (
 	"encoding/csv"
 	"fmt"
 	_ "github.com/lib/pq"
-	"io"
 	"io/ioutil"
 	"log"
 	"strings"
@@ -26,20 +25,15 @@ func parseCsvToDatabase() {
 	dat, err := ioutil.ReadFile("legislator_info.csv")
 	check(err)
 
-	r := csv.NewReader(strings.NewReader(string(dat)))
+	inputCsv := csv.NewReader(strings.NewReader(string(dat)))
 
 	//read out header line
-	r.Read()
+	inputCsv.Read()
 
 	i := 0
 	for i = 0; i < 1; i++ {
-		record, err := r.Read()
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			log.Fatal(err)
-		}
+
+		record := readOneRow(inputCsv)
 
 		j := 0
 		for j = 0; j < len(record); j++ {
@@ -60,6 +54,16 @@ func parseCsvToDatabase() {
 	}
 
 	fmt.Printf("parse end\n")
+}
+
+func readOneRow(inputCsv *csv.Reader) []string {
+	record, err := inputCsv.Read()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return record
 }
 
 func connectToDatabase() *sql.DB {
